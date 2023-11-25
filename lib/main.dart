@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'home_tabbar_vc.dart';
+import 'package:vvword/home_tabbar_vc.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,57 +8,69 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
+    return MaterialApp(
+      home: MyTabBarScreen(),
     );
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
-
+class MyTabBarScreen extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _MyTabBarScreenState createState() => _MyTabBarScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _MyTabBarScreenState extends State<MyTabBarScreen>
+    with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+
+  late TabController _tabController;
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return HomeTabBarVC(
-      length: 1,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('My TabBar'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Tab 1'),
-            ],
-          ),
-        ),
-        body: const TabBarView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('TabBar Example'),
+      ),
+      body: HomeTabBarVC(
+        length: 2, // 选项卡的数量
+        child: Column(
           children: [
-            Center(
-              child: Text('Content for Tab 1'),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  // 第一个选项卡的内容
+                  Center(
+                    child: Text('Tab 1 Content'),
+                  ),
+                  // 第二个选项卡的内容
+                  Center(
+                    child: Text('Tab 2 Content'),
+                  ),
+                  // 第三个选项卡的内容
+                ],
+              ),
             ),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
+            BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                _tabController.animateTo(index); // 手动切换TabBarView
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: 'Tab 1',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.business),
+                  label: 'Tab 2',
+                ),
+              ],
             ),
           ],
         ),
