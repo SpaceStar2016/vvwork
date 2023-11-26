@@ -1,51 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({required this.title, super.key});
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class AddView extends StatelessWidget {
+  const AddView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return Image.network(
-            "https://via.placeholder.com/350x150",
-            fit: BoxFit.fill,
-          );
+    // TODO: implement build
+    return Center(
+      child: InkWell(
+        onTap: () {
+          // 处理按钮点击事件
+          print('Add button tapped!');
         },
-        itemCount: 3,
-        pagination: SwiperPagination(),
-        control: SwiperControl(),
+        child: Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            color: Colors.blue,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 3,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 40,
+          ),
+        ),
       ),
-    );
-  }
-}
-
-class HomeContent extends StatefulWidget {
-  HomeContent({required this.title, super.key});
-
-  final String title;
-
-  @override
-  _HomeContentState createState() => _HomeContentState();
-}
-
-class _HomeContentState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-
     );
   }
 }

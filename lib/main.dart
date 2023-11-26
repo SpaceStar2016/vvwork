@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vvword/home_tabbar_vc.dart';
 
+import 'add_view.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -43,11 +45,9 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: [
+                children: const [
                   // 第一个选项卡的内容
-                  Center(
-                    child: Text('Tab 1 Content'),
-                  ),
+                  AddView(),
                   // 第二个选项卡的内容
                   Center(
                     child: Text('Tab 2 Content'),

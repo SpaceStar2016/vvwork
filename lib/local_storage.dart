@@ -1,51 +1,41 @@
-import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+class LocalStorage {
+  static const String key = "myObjectKey";
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({required this.title, super.key});
+  static Future<bool> saveObject(MyObject myObject) async {
+    final prefs = await SharedPreferences.getInstance();
+    final encodedObject = myObject.toJson(); // Assuming MyObject has a toJson() method
+    return prefs.setString(key, jsonEncode(MyObject));
+  }
 
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          return Image.network(
-            "https://via.placeholder.com/350x150",
-            fit: BoxFit.fill,
-          );
-        },
-        itemCount: 3,
-        pagination: SwiperPagination(),
-        control: SwiperControl(),
-      ),
-    );
+  static Future<MyObject?> getObject() async {
+    final prefs = await SharedPreferences.getInstance();
+    final encodedObject = prefs.getString(key);
+    if (encodedObject != null) {
+      return jsonDecode(encodedObject); // Assuming MyObject has a fromJson() method
+    }
+    return null;
   }
 }
 
-class HomeContent extends StatefulWidget {
-  HomeContent({required this.title, super.key});
+class MyObject {
+  final String name;
+  final int age;
 
-  final String title;
+  MyObject(this.name, this.age);
 
-  @override
-  _HomeContentState createState() => _HomeContentState();
-}
+  // Convert the object to a map
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'age': age,
+  };
 
-class _HomeContentState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-
+  // Create an object from a map
+  factory MyObject.fromJson(Map<String, dynamic> json) {
+    return MyObject(
+      json['name'] as String,
+      json['age'] as int,
     );
   }
 }
