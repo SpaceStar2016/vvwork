@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vvword/home_tabbar_vc.dart';
+import 'package:vvword/page/add_page.dart';
 
 import 'add_view.dart';
 
@@ -12,6 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyTabBarScreen(),
+      routes: {
+        '/addPage': (context) => AddPage(),
+      },
     );
   }
 }
