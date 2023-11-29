@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/services.dart';
 
+import '../local_storage.dart';
+
 class AddPage extends StatefulWidget {
   AddPage({super.key});
 
@@ -10,8 +12,8 @@ class AddPage extends StatefulWidget {
 }
 
 class _AddPageState extends State<AddPage> {
-  TextEditingController _wordController = TextEditingController();
-
+  final TextEditingController _wordController = TextEditingController();
+  final TextEditingController _translationController = TextEditingController();
   final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(140.0), borderSide: BorderSide.none);
   List<TextInputFormatter>? inputFormatters;
@@ -26,7 +28,9 @@ class _AddPageState extends State<AddPage> {
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
             children: [
-              const SizedBox(height: 64,),
+              const SizedBox(
+                height: 64,
+              ),
               TextField(
                 onChanged: (text) {
                   setState(() {});
@@ -58,12 +62,13 @@ class _AddPageState extends State<AddPage> {
                       offstage: _wordController.text.isEmpty,
                       child: IconButton(
                         icon: const Icon(
-                          Icons.add,
-                          color: Colors.blue,
-                          size: 30.0,
+                          Icons.close,
+                          color: Colors.grey,
+                          size: 20.0,
                         ),
                         onPressed: () {
-                          // 处理按钮点击事件
+                          _wordController.text = '';
+                          setState(() {});
                         },
                       )),
                 ),
@@ -73,7 +78,7 @@ class _AddPageState extends State<AddPage> {
                 onChanged: (text) {
                   setState(() {});
                 },
-                controller: _wordController,
+                controller: _translationController,
                 keyboardType: TextInputType.emailAddress,
                 keyboardAppearance: Brightness.dark,
                 cursorColor: const Color(0xFF7266FF),
@@ -97,27 +102,27 @@ class _AddPageState extends State<AddPage> {
                       left: 20, right: 20, top: 14, bottom: 14),
                   filled: true,
                   suffixIcon: Offstage(
-                      offstage: _wordController.text.isEmpty,
+                      offstage: _translationController.text.isEmpty,
                       child: IconButton(
                         icon: const Icon(
-                          Icons.add,
-                          color: Colors.blue,
-                          size: 30.0,
+                          Icons.close,
+                          color: Colors.grey,
+                          size: 20.0,
                         ),
                         onPressed: () {
-                          // 处理按钮点击事件
+                          _translationController.text = '';
+                          setState(() {});
                         },
                       )),
                 ),
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () {
-                  // 按钮点击事件
-                  print('Button pressed!');
-                },
+                onPressed: () => _canConfirm() ? _confirmHandle() : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // 按钮颜色
+                  backgroundColor: _canConfirm()
+                      ? Colors.blue
+                      : Colors.grey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0), // 圆角大小
                   ),
@@ -136,5 +141,14 @@ class _AddPageState extends State<AddPage> {
         ),
       ),
     );
+  }
+
+  _confirmHandle() {
+    LocalStorage.saveObject(
+        Vocabulary(_wordController.text, _translationController.text));
+  }
+
+  bool _canConfirm() {
+    return _wordController.text.isNotEmpty;
   }
 }

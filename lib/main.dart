@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vvword/home_tabbar_vc.dart';
+import 'package:vvword/add_view.dart';
 import 'package:vvword/page/add_page.dart';
-
-import 'add_view.dart';
+import 'home_tabbar_vc.dart';
 
 void main() {
   runApp(MyApp());

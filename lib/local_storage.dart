@@ -3,13 +3,13 @@ import 'dart:convert';
 class LocalStorage {
   static const String key = "myObjectKey";
 
-  static Future<bool> saveObject(MyObject myObject) async {
+  static Future<bool> saveObject(Vocabulary myObject) async {
     final prefs = await SharedPreferences.getInstance();
     final encodedObject = myObject.toJson(); // Assuming MyObject has a toJson() method
-    return prefs.setString(key, jsonEncode(MyObject));
+    return prefs.setString(key, jsonEncode(Vocabulary));
   }
 
-  static Future<MyObject?> getObject() async {
+  static Future<Vocabulary?> getObject() async {
     final prefs = await SharedPreferences.getInstance();
     final encodedObject = prefs.getString(key);
     if (encodedObject != null) {
@@ -19,23 +19,23 @@ class LocalStorage {
   }
 }
 
-class MyObject {
-  final String name;
-  final int age;
+class Vocabulary {
+  final String word;
+  final String? translation;
 
-  MyObject(this.name, this.age);
+  Vocabulary(this.word, this.translation);
 
   // Convert the object to a map
   Map<String, dynamic> toJson() => {
-    'name': name,
-    'age': age,
+    'word': word,
+    'translation': translation ?? '',
   };
 
   // Create an object from a map
-  factory MyObject.fromJson(Map<String, dynamic> json) {
-    return MyObject(
-      json['name'] as String,
-      json['age'] as int,
+  factory Vocabulary.fromJson(Map<String, dynamic> json) {
+    return Vocabulary(
+      json['word'] as String,
+      json['translation'] as String,
     );
   }
 }
