@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:vvword/add_view.dart';
 import 'package:vvword/page/add_page.dart';
+import 'cache/database.dart';
 import 'home_tabbar_vc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // 加载数据
+  final database = AppDatabase();
+
+  await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
+    word: 'todo: finish drift setup',
+    translation: 'We can now write queries and define our own tables.',
+  ));
+  List<TodoItem> allItems = await database.select(database.todoItems).get();
+
+  print('items in database: $allItems');
+
   runApp(MyApp());
 }
 
@@ -22,7 +35,7 @@ class MyApp extends StatelessWidget {
 class MyTabBarScreen extends StatefulWidget {
   @override
   _MyTabBarScreenState createState() => _MyTabBarScreenState();
-  
+
 }
 
 class _MyTabBarScreenState extends State<MyTabBarScreen>
