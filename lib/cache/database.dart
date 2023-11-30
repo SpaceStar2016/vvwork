@@ -6,19 +6,20 @@ import 'package:path/path.dart' as p;
 
 part 'database.g.dart';
 
-class TodoItems extends Table {
+class Vocabulary extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get word => text().withLength(min: 6, max: 32)();
   TextColumn get translation => text().named('body')();
   IntColumn get category => integer().nullable()();
 }
 
-@DriftDatabase(tables: [TodoItems])
+@DriftDatabase(tables: [Vocabulary])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
-
   @override
   int get schemaVersion => 1;
+
+  
 
 }
 

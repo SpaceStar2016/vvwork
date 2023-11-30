@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/services.dart';
-
-import '../local_storage.dart';
-
+import 'package:vvword/app_setting.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vvword/cache/database.dart';
 class AddPage extends StatefulWidget {
   AddPage({super.key});
 
@@ -143,9 +143,16 @@ class _AddPageState extends State<AddPage> {
     );
   }
 
-  _confirmHandle() {
-    LocalStorage.saveObject(
-        Vocabulary(_wordController.text, _translationController.text));
+  _confirmHandle() async{
+    final db = AppSettings.db;
+    await db.into(db.vocabulary).insert(VocabularyCompanion.insert(
+      word: _wordController.text,
+      translation: _translationController.text,
+    ));
+    Fluttertoast.showToast(msg: "添加成功");
+    _wordController.text = "";
+    _translationController.text = "";
+    setState(() {});
   }
 
   bool _canConfirm() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vvword/add_view.dart';
+import 'package:vvword/app_setting.dart';
 import 'package:vvword/page/add_page.dart';
 import 'cache/database.dart';
 import 'home_tabbar_vc.dart';
@@ -7,20 +8,12 @@ import 'home_tabbar_vc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 加载数据
-  final database = AppDatabase();
-
-  await database.into(database.todoItems).insert(TodoItemsCompanion.insert(
-    word: 'todo: finish drift setup',
-    translation: 'We can now write queries and define our own tables.',
-  ));
-  List<TodoItem> allItems = await database.select(database.todoItems).get();
-
-  print('items in database: $allItems');
-
+  await AppSettings.initData();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final vv = AppSettings.vocabularies;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,7 +46,7 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TabBar Example'),
+        title: const Text('没有标题'),
       ),
       body: HomeTabBarVC(
         length: 2, // 选项卡的数量
@@ -78,14 +71,14 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
               onTap: (index) {
                 _tabController.animateTo(index); // 手动切换TabBarView
               },
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
-                  label: 'Tab 1',
+                  label: '添加',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.business),
-                  label: 'Tab 2',
+                  label: '我的',
                 ),
               ],
             ),

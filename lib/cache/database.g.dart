@@ -3,12 +3,12 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class $TodoItemsTable extends TodoItems
-    with TableInfo<$TodoItemsTable, TodoItem> {
+class $VocabularyTable extends Vocabulary
+    with TableInfo<$VocabularyTable, VocabularyData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TodoItemsTable(this.attachedDatabase, [this._alias]);
+  $VocabularyTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -44,9 +44,9 @@ class $TodoItemsTable extends TodoItems
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'todo_items';
+  static const String $name = 'vocabulary';
   @override
-  VerificationContext validateIntegrity(Insertable<TodoItem> instance,
+  VerificationContext validateIntegrity(Insertable<VocabularyData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -75,9 +75,9 @@ class $TodoItemsTable extends TodoItems
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  TodoItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+  VocabularyData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TodoItem(
+    return VocabularyData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       word: attachedDatabase.typeMapping
@@ -90,17 +90,17 @@ class $TodoItemsTable extends TodoItems
   }
 
   @override
-  $TodoItemsTable createAlias(String alias) {
-    return $TodoItemsTable(attachedDatabase, alias);
+  $VocabularyTable createAlias(String alias) {
+    return $VocabularyTable(attachedDatabase, alias);
   }
 }
 
-class TodoItem extends DataClass implements Insertable<TodoItem> {
+class VocabularyData extends DataClass implements Insertable<VocabularyData> {
   final int id;
   final String word;
   final String translation;
   final int? category;
-  const TodoItem(
+  const VocabularyData(
       {required this.id,
       required this.word,
       required this.translation,
@@ -117,8 +117,8 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
     return map;
   }
 
-  TodoItemsCompanion toCompanion(bool nullToAbsent) {
-    return TodoItemsCompanion(
+  VocabularyCompanion toCompanion(bool nullToAbsent) {
+    return VocabularyCompanion(
       id: Value(id),
       word: Value(word),
       translation: Value(translation),
@@ -128,10 +128,10 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
     );
   }
 
-  factory TodoItem.fromJson(Map<String, dynamic> json,
+  factory VocabularyData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TodoItem(
+    return VocabularyData(
       id: serializer.fromJson<int>(json['id']),
       word: serializer.fromJson<String>(json['word']),
       translation: serializer.fromJson<String>(json['translation']),
@@ -149,12 +149,12 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
     };
   }
 
-  TodoItem copyWith(
+  VocabularyData copyWith(
           {int? id,
           String? word,
           String? translation,
           Value<int?> category = const Value.absent()}) =>
-      TodoItem(
+      VocabularyData(
         id: id ?? this.id,
         word: word ?? this.word,
         translation: translation ?? this.translation,
@@ -162,7 +162,7 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
       );
   @override
   String toString() {
-    return (StringBuffer('TodoItem(')
+    return (StringBuffer('VocabularyData(')
           ..write('id: $id, ')
           ..write('word: $word, ')
           ..write('translation: $translation, ')
@@ -176,32 +176,32 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is TodoItem &&
+      (other is VocabularyData &&
           other.id == this.id &&
           other.word == this.word &&
           other.translation == this.translation &&
           other.category == this.category);
 }
 
-class TodoItemsCompanion extends UpdateCompanion<TodoItem> {
+class VocabularyCompanion extends UpdateCompanion<VocabularyData> {
   final Value<int> id;
   final Value<String> word;
   final Value<String> translation;
   final Value<int?> category;
-  const TodoItemsCompanion({
+  const VocabularyCompanion({
     this.id = const Value.absent(),
     this.word = const Value.absent(),
     this.translation = const Value.absent(),
     this.category = const Value.absent(),
   });
-  TodoItemsCompanion.insert({
+  VocabularyCompanion.insert({
     this.id = const Value.absent(),
     required String word,
     required String translation,
     this.category = const Value.absent(),
   })  : word = Value(word),
         translation = Value(translation);
-  static Insertable<TodoItem> custom({
+  static Insertable<VocabularyData> custom({
     Expression<int>? id,
     Expression<String>? word,
     Expression<String>? translation,
@@ -215,12 +215,12 @@ class TodoItemsCompanion extends UpdateCompanion<TodoItem> {
     });
   }
 
-  TodoItemsCompanion copyWith(
+  VocabularyCompanion copyWith(
       {Value<int>? id,
       Value<String>? word,
       Value<String>? translation,
       Value<int?>? category}) {
-    return TodoItemsCompanion(
+    return VocabularyCompanion(
       id: id ?? this.id,
       word: word ?? this.word,
       translation: translation ?? this.translation,
@@ -248,7 +248,7 @@ class TodoItemsCompanion extends UpdateCompanion<TodoItem> {
 
   @override
   String toString() {
-    return (StringBuffer('TodoItemsCompanion(')
+    return (StringBuffer('VocabularyCompanion(')
           ..write('id: $id, ')
           ..write('word: $word, ')
           ..write('translation: $translation, ')
@@ -260,10 +260,10 @@ class TodoItemsCompanion extends UpdateCompanion<TodoItem> {
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
-  late final $TodoItemsTable todoItems = $TodoItemsTable(this);
+  late final $VocabularyTable vocabulary = $VocabularyTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [todoItems];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [vocabulary];
 }
