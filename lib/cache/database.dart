@@ -6,14 +6,14 @@ import 'package:path/path.dart' as p;
 
 part 'database.g.dart';
 
-class Vocabulary extends Table {
+class DBWord extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get word => text().withLength(min: 6, max: 32)();
+  TextColumn get word => text().withLength(min: 1, max: 32)();
   TextColumn get translation => text().named('body')();
   IntColumn get category => integer().nullable()();
 }
 
-@DriftDatabase(tables: [Vocabulary])
+@DriftDatabase(tables: [DBWord])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
   @override

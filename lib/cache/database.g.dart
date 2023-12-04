@@ -3,12 +3,11 @@
 part of 'database.dart';
 
 // ignore_for_file: type=lint
-class $VocabularyTable extends Vocabulary
-    with TableInfo<$VocabularyTable, VocabularyData> {
+class $DBWordTable extends DBWord with TableInfo<$DBWordTable, DBWordData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $VocabularyTable(this.attachedDatabase, [this._alias]);
+  $DBWordTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -23,7 +22,7 @@ class $VocabularyTable extends Vocabulary
   late final GeneratedColumn<String> word = GeneratedColumn<String>(
       'word', aliasedName, false,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 6, maxTextLength: 32),
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 32),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
   static const VerificationMeta _translationMeta =
@@ -44,9 +43,9 @@ class $VocabularyTable extends Vocabulary
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'vocabulary';
+  static const String $name = 'd_b_word';
   @override
-  VerificationContext validateIntegrity(Insertable<VocabularyData> instance,
+  VerificationContext validateIntegrity(Insertable<DBWordData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -75,9 +74,9 @@ class $VocabularyTable extends Vocabulary
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  VocabularyData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  DBWordData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return VocabularyData(
+    return DBWordData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       word: attachedDatabase.typeMapping
@@ -90,17 +89,17 @@ class $VocabularyTable extends Vocabulary
   }
 
   @override
-  $VocabularyTable createAlias(String alias) {
-    return $VocabularyTable(attachedDatabase, alias);
+  $DBWordTable createAlias(String alias) {
+    return $DBWordTable(attachedDatabase, alias);
   }
 }
 
-class VocabularyData extends DataClass implements Insertable<VocabularyData> {
+class DBWordData extends DataClass implements Insertable<DBWordData> {
   final int id;
   final String word;
   final String translation;
   final int? category;
-  const VocabularyData(
+  const DBWordData(
       {required this.id,
       required this.word,
       required this.translation,
@@ -117,8 +116,8 @@ class VocabularyData extends DataClass implements Insertable<VocabularyData> {
     return map;
   }
 
-  VocabularyCompanion toCompanion(bool nullToAbsent) {
-    return VocabularyCompanion(
+  DBWordCompanion toCompanion(bool nullToAbsent) {
+    return DBWordCompanion(
       id: Value(id),
       word: Value(word),
       translation: Value(translation),
@@ -128,10 +127,10 @@ class VocabularyData extends DataClass implements Insertable<VocabularyData> {
     );
   }
 
-  factory VocabularyData.fromJson(Map<String, dynamic> json,
+  factory DBWordData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return VocabularyData(
+    return DBWordData(
       id: serializer.fromJson<int>(json['id']),
       word: serializer.fromJson<String>(json['word']),
       translation: serializer.fromJson<String>(json['translation']),
@@ -149,12 +148,12 @@ class VocabularyData extends DataClass implements Insertable<VocabularyData> {
     };
   }
 
-  VocabularyData copyWith(
+  DBWordData copyWith(
           {int? id,
           String? word,
           String? translation,
           Value<int?> category = const Value.absent()}) =>
-      VocabularyData(
+      DBWordData(
         id: id ?? this.id,
         word: word ?? this.word,
         translation: translation ?? this.translation,
@@ -162,7 +161,7 @@ class VocabularyData extends DataClass implements Insertable<VocabularyData> {
       );
   @override
   String toString() {
-    return (StringBuffer('VocabularyData(')
+    return (StringBuffer('DBWordData(')
           ..write('id: $id, ')
           ..write('word: $word, ')
           ..write('translation: $translation, ')
@@ -176,32 +175,32 @@ class VocabularyData extends DataClass implements Insertable<VocabularyData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is VocabularyData &&
+      (other is DBWordData &&
           other.id == this.id &&
           other.word == this.word &&
           other.translation == this.translation &&
           other.category == this.category);
 }
 
-class VocabularyCompanion extends UpdateCompanion<VocabularyData> {
+class DBWordCompanion extends UpdateCompanion<DBWordData> {
   final Value<int> id;
   final Value<String> word;
   final Value<String> translation;
   final Value<int?> category;
-  const VocabularyCompanion({
+  const DBWordCompanion({
     this.id = const Value.absent(),
     this.word = const Value.absent(),
     this.translation = const Value.absent(),
     this.category = const Value.absent(),
   });
-  VocabularyCompanion.insert({
+  DBWordCompanion.insert({
     this.id = const Value.absent(),
     required String word,
     required String translation,
     this.category = const Value.absent(),
   })  : word = Value(word),
         translation = Value(translation);
-  static Insertable<VocabularyData> custom({
+  static Insertable<DBWordData> custom({
     Expression<int>? id,
     Expression<String>? word,
     Expression<String>? translation,
@@ -215,12 +214,12 @@ class VocabularyCompanion extends UpdateCompanion<VocabularyData> {
     });
   }
 
-  VocabularyCompanion copyWith(
+  DBWordCompanion copyWith(
       {Value<int>? id,
       Value<String>? word,
       Value<String>? translation,
       Value<int?>? category}) {
-    return VocabularyCompanion(
+    return DBWordCompanion(
       id: id ?? this.id,
       word: word ?? this.word,
       translation: translation ?? this.translation,
@@ -248,7 +247,7 @@ class VocabularyCompanion extends UpdateCompanion<VocabularyData> {
 
   @override
   String toString() {
-    return (StringBuffer('VocabularyCompanion(')
+    return (StringBuffer('DBWordCompanion(')
           ..write('id: $id, ')
           ..write('word: $word, ')
           ..write('translation: $translation, ')
@@ -260,10 +259,10 @@ class VocabularyCompanion extends UpdateCompanion<VocabularyData> {
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
-  late final $VocabularyTable vocabulary = $VocabularyTable(this);
+  late final $DBWordTable dBWord = $DBWordTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [vocabulary];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [dBWord];
 }

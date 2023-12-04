@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:vvword/add_view.dart';
+import 'package:vvword/page/add_view.dart';
 import 'package:vvword/app_setting.dart';
+import 'package:vvword/cache/db_utils.dart';
 import 'package:vvword/page/add_page.dart';
+import 'package:vvword/page/recite_page.dart';
 import 'cache/database.dart';
 import 'home_tabbar_vc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // 加载数据
-  await AppSettings.initData();
+  await DBUtils.initData();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final vv = AppSettings.vocabularies;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,7 +47,7 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('没有标题'),
+        title: const Text('添加词汇'),
       ),
       body: HomeTabBarVC(
         length: 2, // 选项卡的数量
@@ -60,7 +61,7 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
                   AddView(),
                   // 第二个选项卡的内容
                   Center(
-                    child: Text('Tab 2 Content'),
+                    child: RecitePage(),
                   ),
                   // 第三个选项卡的内容
                 ],
@@ -78,7 +79,7 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.business),
-                  label: '我的',
+                  label: '背诵',
                 ),
               ],
             ),
