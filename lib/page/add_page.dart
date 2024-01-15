@@ -49,7 +49,7 @@ class _AddPageState extends State<AddPage> {
                   controller: _wordController,
                   keyboardType: TextInputType.emailAddress,
                   keyboardAppearance: Brightness.dark,
-                  cursorColor: UIUtils.themeCharacterWhite,
+                  cursorColor: const Color(0xFF7266FF),
                   cursorRadius: const Radius.circular(3),
                   cursorWidth: 2,
                   cursorHeight: 24,
@@ -87,7 +87,6 @@ class _AddPageState extends State<AddPage> {
                 const SizedBox(height: 16),
                 TextField(
                   onChanged: (text) {
-                    setState(() {});
                   },
                   controller: _translationController,
                   keyboardType: TextInputType.emailAddress,
@@ -147,11 +146,13 @@ class _AddPageState extends State<AddPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100)),
                     foregroundColor: Colors.white,
-                    backgroundColor: UIUtils.themeBlue,
+                    backgroundColor: _canConfirm() ? UIUtils.themeBlue : UIUtils.themeGrey,
                     textStyle: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w600),
                   ),
-                  onPressed: _canConfirm() ? _confirmHandle() : null,
+                  onPressed: (){
+                    _canConfirm() ? _confirmHandle() : null;
+                  },
                   child: const Text(
                     "确认",
                     style: TextStyle(color: UIUtils.themeCharacterWhite),

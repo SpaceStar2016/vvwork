@@ -12,10 +12,12 @@ class RecitePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('ExampleHorizontal'),
       ),
-      body: Swiper(
+      body: DBUtils.vocabularies.isEmpty ? const Offstage() : Swiper(
         itemBuilder: (context, index) {
           var word  = DBUtils.vocabularies[index];
-          return Text(word.word);
+          return Center(
+            child: Text(word.word),
+          );
         },
         indicatorLayout: PageIndicatorLayout.COLOR,
         itemCount: DBUtils.vocabularies.length,

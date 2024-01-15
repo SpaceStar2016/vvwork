@@ -6,6 +6,8 @@ class UIUtils {
   static const Color themeBackground = Color(0xFFEDF4F7);
   // 主题蓝
   static const Color themeBlue = Color(0xFF6696FF);
+
+  static const Color themeGrey = Color(0xFFC4CACD);
   // 文字白
   static const Color themeCharacterWhite = Color(0xFFFFFFFF);
   // 文字黑

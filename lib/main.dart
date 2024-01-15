@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vvword/page/add_view.dart';
-import 'package:vvword/app_setting.dart';
 import 'package:vvword/cache/db_utils.dart';
 import 'package:vvword/page/add_page.dart';
 import 'package:vvword/page/recite_page.dart';
-import 'cache/database.dart';
 import 'home_tabbar_vc.dart';
 
 void main() async {
@@ -18,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyTabBarScreen(),
+      home: const MyTabBarScreen(),
       routes: {
         '/addPage': (context) => AddPage(),
       },
@@ -27,6 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyTabBarScreen extends StatefulWidget {
+  const MyTabBarScreen({super.key});
   @override
   _MyTabBarScreenState createState() => _MyTabBarScreenState();
 
@@ -70,7 +69,9 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
             BottomNavigationBar(
               currentIndex: _currentIndex,
               onTap: (index) {
-                _tabController.animateTo(index); // 手动切换TabBarView
+                _tabController.animateTo(index);
+                _currentIndex = index; // 手动切换TabBarView
+                setState(() {});
               },
               items: const [
                 BottomNavigationBarItem(
