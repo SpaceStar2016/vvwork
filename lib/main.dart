@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vvword/page/add_view.dart';
 import 'package:vvword/cache/db_utils.dart';
 import 'package:vvword/page/add_page.dart';
+import 'package:vvword/page/ocr_page.dart';
 import 'package:vvword/page/recite_page.dart';
 import 'home_tabbar_vc.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       home: const MyTabBarScreen(),
       routes: {
         '/addPage': (context) => AddPage(),
+        '/OcrPage': (context) => OcrPage(),
       },
     );
   }

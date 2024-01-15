@@ -137,6 +137,26 @@ class _AddPageState extends State<AddPage> {
                       fontWeight: FontWeight.w600),
                 ),
                 const TagSelector(),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide.none,
+                    padding: EdgeInsets.zero,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100)),
+                    foregroundColor: Colors.white,
+                    backgroundColor: _canConfirm() ? UIUtils.themeBlue : UIUtils.themeGrey,
+                    textStyle: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  onPressed: (){
+                    _showCamera();
+                  },
+                  child: const Text(
+                    "拍照取词",
+                    style: TextStyle(color: UIUtils.themeCharacterWhite),
+                  ),
+                ),
                 const Spacer(),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
@@ -165,6 +185,10 @@ class _AddPageState extends State<AddPage> {
         ),
       ),
     );
+  }
+
+  _showCamera() async {
+    Navigator.pushNamed(context, '/OcrPage');
   }
 
   _confirmHandle() async {
