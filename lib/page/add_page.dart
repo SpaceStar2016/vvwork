@@ -10,6 +10,8 @@ import 'package:vvword/cache/db_utils.dart';
 import 'package:vvword/page/tag_selector.dart';
 
 class AddPage extends StatefulWidget {
+
+
   const AddPage({super.key});
 
   @override
@@ -129,33 +131,22 @@ class _AddPageState extends State<AddPage> {
                 const SizedBox(
                   height: 32,
                 ),
-                const Text(
-                  "标签:",
-                  style: TextStyle(
-                      color: UIUtils.themeCharacterBlack,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                ),
-                const TagSelector(),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide.none,
-                    padding: EdgeInsets.zero,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
-                    foregroundColor: Colors.white,
-                    backgroundColor: _canConfirm() ? UIUtils.themeBlue : UIUtils.themeGrey,
-                    textStyle: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.w600),
-                  ),
-                  onPressed: (){
-                    _showCamera();
-                  },
-                  child: const Text(
-                    "拍照取词",
-                    style: TextStyle(color: UIUtils.themeCharacterWhite),
-                  ),
+                // const Text(
+                //   "标签:",
+                //   style: TextStyle(
+                //       color: UIUtils.themeCharacterBlack,
+                //       fontSize: 18,
+                //       fontWeight: FontWeight.w600),
+                // ),
+                // const TagSelector(),
+                Row(
+                  children: [
+                    _makeButton("拍照取词", AddType.addOcr),
+                    const SizedBox(width: 10,),
+                    _makeButton("图片取词",AddType.addTextRecognition),
+                    const SizedBox(width: 10,),
+                    _makeButton("语音输入",AddType.other),
+                  ],
                 ),
                 const Spacer(),
                 OutlinedButton(
@@ -174,7 +165,7 @@ class _AddPageState extends State<AddPage> {
                     _canConfirm() ? _confirmHandle() : null;
                   },
                   child: const Text(
-                    "确认",
+                    "保存",
                     style: TextStyle(color: UIUtils.themeCharacterWhite),
                   ),
                 ),
@@ -187,9 +178,43 @@ class _AddPageState extends State<AddPage> {
     );
   }
 
-  _showCamera() async {
+  _makeButton(String text, AddType type){
+    return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide.none,
+        padding: EdgeInsets.zero,
+        minimumSize: const Size(100, 50),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100)),
+        foregroundColor: Colors.white,
+        backgroundColor:  UIUtils.themeBlue,
+        textStyle: const TextStyle(
+            fontSize: 16, fontWeight: FontWeight.w600),
+      ),
+      onPressed: (){
+        if (type == AddType.addOcr) {
+          _showOcr();
+        }
+        if (type == AddType.addTextRecognition) {
+          _showTextRecognition();
+        }
+
+      },
+      child: Text(
+        text,
+        style: const TextStyle(color: UIUtils.themeCharacterWhite),
+      ),
+    );
+  }
+
+  _showOcr() {
     Navigator.pushNamed(context, '/OcrPage');
   }
+
+  _showTextRecognition() {
+    Navigator.pushNamed(context, '/TextRecognitionPage');
+  }
+
 
   _confirmHandle() async {
     final vv = Vocabulary(
@@ -204,4 +229,10 @@ class _AddPageState extends State<AddPage> {
   bool _canConfirm() {
     return _wordController.text.isNotEmpty;
   }
+}
+
+enum AddType {
+  addOcr,
+  addTextRecognition,
+  other,
 }

@@ -4,6 +4,7 @@ import 'package:vvword/cache/db_utils.dart';
 import 'package:vvword/page/add_page.dart';
 import 'package:vvword/page/ocr_page.dart';
 import 'package:vvword/page/recite_page.dart';
+import 'package:vvword/page/text_recognition_page.dart';
 import 'home_tabbar_vc.dart';
 
 void main() async {
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/addPage': (context) => AddPage(),
         '/OcrPage': (context) => OcrPage(),
+        '/TextRecognitionPage': (context) => TextRecognitionPage(),
+
       },
     );
   }
