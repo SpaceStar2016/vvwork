@@ -27,6 +27,7 @@ class _TextRecognitionPageState extends State<TextRecognitionPage> {
                 fontSize: 16, fontWeight: FontWeight.w600),
           ),
           onPressed: (){
+
           },
           child: const Text(
             "选择图片",

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 class TagSelector extends StatefulWidget {
-  const TagSelector({super.key});
+
+  TagSelector({required this.allTags ,super.key});
+
+  final ValueNotifier<List<String>> allTagsNo = ValueNotifier<List<String>>([]);
+
+  List<String> allTags = [];
+
 
   @override
   _TagSelectorState createState() => _TagSelectorState();
@@ -9,14 +15,6 @@ class TagSelector extends StatefulWidget {
 class _TagSelectorState extends State<TagSelector> {
   List<String> selectedTags = [];
 
-  final List<String> allTags = [
-    '雅思听力',
-    '雅思写作',
-    '雅思阅读',
-    '雅思口语',
-    '四六级',
-    '自定义标签',
-  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +23,7 @@ class _TagSelectorState extends State<TagSelector> {
         Wrap(
           spacing: 8.0,
           runSpacing: 8.0,
-          children: allTags.map((tag) {
+          children: widget.allTags.map((tag) {
             return ChoiceChip(
               label: Text(tag),
               selected: selectedTags.contains(tag),
@@ -41,7 +39,7 @@ class _TagSelectorState extends State<TagSelector> {
             );
           }).toList(),
         ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         Text('Selected Tags: ${selectedTags.join(', ')}'),
       ],
     );

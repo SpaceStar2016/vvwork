@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/services.dart';
 import 'package:vvword/Model/vocabulary.dart';
 import 'package:vvword/Utils/UIUtils.dart';
-import 'package:vvword/app_setting.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:vvword/cache/database.dart';
 import 'package:vvword/cache/db_utils.dart';
-import 'package:vvword/page/tag_selector.dart';
 
 class AddPage extends StatefulWidget {
 
