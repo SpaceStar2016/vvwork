@@ -5,7 +5,7 @@ import 'package:vvword/page/add_page.dart';
 import 'package:vvword/page/ocr_page.dart';
 import 'package:vvword/page/recite_page.dart';
 import 'package:vvword/page/text_recognition_page.dart';
-import 'home_tabbar_vc.dart';
+import 'page/home_tabbar_vc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
