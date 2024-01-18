@@ -32,33 +32,34 @@ class _OcrPageState extends State<OcrPage> {
             GestureDetector(
               onTap: () {
                 // 去重
-                allTagsNo.value = [...allTagsNo.value,"123123"];
+                allTagsNo.value = ["112233"];
               },
               child: Center(
                 child: Text("点我啊！！~~"),
               ),
             ),
-            // ScalableOCR(
-            //   paintboxCustom: Paint()
-            //     ..style = PaintingStyle.stroke
-            //     ..strokeWidth = 4.0
-            //     ..color = const Color.fromARGB(153, 102, 160, 241),
-            //   boxLeftOff: 4,
-            //   boxBottomOff: 2.7,
-            //   boxRightOff: 4,
-            //   boxTopOff: 2.7,
-            //   boxHeight: MediaQuery.of(context).size.height / 5,
-            //   getRawData: (value) {
-            //     inspect(value);
-            //   },
-            //   getScannedText: (value) {
-            //     if (value is String && value.isNotEmpty) {
-            //       data.add(value);
-            //       // 去重
-            //       allTagsNo.value = data.toSet().toList();
-            //     }
-            //   },
-            // ),
+            ScalableOCR(
+              paintboxCustom: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 4.0
+                ..color = const Color.fromARGB(153, 102, 160, 241),
+              boxLeftOff: 4,
+              boxBottomOff: 2.7,
+              boxRightOff: 4,
+              boxTopOff: 2.7,
+              boxHeight: MediaQuery.of(context).size.height / 5,
+              getRawData: (value) {
+                inspect(value);
+              },
+              // 这里调用了setState, 所以要加 addPostFrameCallback
+              getScannedText: (value) {
+                if (value is String && value.isNotEmpty) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    allTagsNo.value = [value];
+                  });
+                }
+              },
+            ),
             ValueListenableBuilder(
                 valueListenable: allTagsNo,
                 builder: (context, value, child) {

@@ -12,9 +12,9 @@ class RecitePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ExampleHorizontal'),
+        title: const Text('单词背诵'),
       ),
-      body: DBUtils.vocabularies.isEmpty ? const Offstage() : Swiper(
+      body: DBUtils.vocabularies.isEmpty ? const ReciteEmptyView() : Swiper(
         itemBuilder: (context, index) {
           var word  = DBUtils.vocabularies[index];
           return Center(
@@ -50,7 +50,7 @@ class WordCard extends StatelessWidget {
         children: [
           Text(
             word,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               color: UIUtils.themeCharacterBlack,
               fontWeight: FontWeight.bold,
@@ -79,6 +79,17 @@ class WordCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ReciteEmptyView extends StatelessWidget {
+  const ReciteEmptyView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      "请添加单词"
     );
   }
 }
