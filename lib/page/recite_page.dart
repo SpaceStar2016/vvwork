@@ -24,7 +24,6 @@ class RecitePage extends StatelessWidget {
         indicatorLayout: PageIndicatorLayout.COLOR,
         itemCount: DBUtils.vocabularies.length,
         pagination: const SwiperPagination(),
-        control: const SwiperControl(),
         viewportFraction: 0.8,
         scale: 0.9,
       ),
@@ -72,7 +71,6 @@ class WordCard extends StatelessWidget {
               // TODO: 在这里添加处理发音的逻辑
             },
             style: ElevatedButton.styleFrom(
-              primary: UIUtils.themeBlue,
               textStyle: const TextStyle(
                 color: UIUtils.themeCharacterWhite,
               ),
