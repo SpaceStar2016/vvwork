@@ -5,8 +5,9 @@ import 'package:vvword/Utils/UIUtils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vvword/cache/db_utils.dart';
 
-class AddPage extends StatefulWidget {
+import 'ocr_page.dart';
 
+class AddPage extends StatefulWidget {
 
   const AddPage({super.key});
 
@@ -137,7 +138,7 @@ class _AddPageState extends State<AddPage> {
                 // const TagSelector(),
                 Row(
                   children: [
-                    _makeButton("拍照取词", AddType.addOcr),
+                    _makeButton("扫描取词", AddType.addOcr),
                     const SizedBox(width: 10,),
                     _makeButton("图片取词",AddType.addTextRecognition),
                     const SizedBox(width: 10,),
@@ -194,7 +195,6 @@ class _AddPageState extends State<AddPage> {
         if (type == AddType.addTextRecognition) {
           _showTextRecognition();
         }
-
       },
       child: Text(
         text,
@@ -204,7 +204,14 @@ class _AddPageState extends State<AddPage> {
   }
 
   _showOcr() {
-    Navigator.pushNamed(context, '/OcrPage');
+    final page = OcrPage();
+    page.cb = (text){
+      _wordController.text = text;
+    };
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
   }
 
   _showTextRecognition() {
