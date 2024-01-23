@@ -6,6 +6,7 @@ class DBUtils {
   static late List<DBWordData> dbWords;
   static List<Vocabulary> vocabularies = [];
   static initData() async {
+    vocabularies.clear();
     final database = DBUtils.db;
     dbWords = await database.select(database.dBWord).get();
     for(DBWordData data in dbWords){
@@ -18,5 +19,6 @@ class DBUtils {
       word: vv.word,
       translation: vv.translation,
     ));
+     vocabularies.insert(0, vv);
   }
 }

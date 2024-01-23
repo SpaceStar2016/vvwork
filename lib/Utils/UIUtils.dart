@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 class UIUtils {
 
   // 主题背景白
-  static const Color themeBackground = Color(0xFFEDF4F7);
+  static const Color themeBackgroundWhite = Color(0xFFEDF4F7);
   // 主题蓝
   static const Color themeBlue = Color(0xFF6696FF);
 

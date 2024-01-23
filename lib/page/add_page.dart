@@ -137,12 +137,13 @@ class _AddPageState extends State<AddPage> {
                 // ),
                 // const TagSelector(),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _makeButton("扫描取词", AddType.addOcr),
-                    const SizedBox(width: 10,),
                     _makeButton("图片取词",AddType.addTextRecognition),
                     const SizedBox(width: 10,),
-                    _makeButton("语音输入",AddType.other),
+                    _makeButton("扫描取词", AddType.addOcr),
+                    const SizedBox(width: 10,),
+                    // _makeButton("语音输入",AddType.other),
                   ],
                 ),
                 const Spacer(),
