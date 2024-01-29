@@ -9,7 +9,7 @@ class DBUtils {
     vocabularies.clear();
     final database = DBUtils.db;
     dbWords = await database.select(database.dBWord).get();
-    for(DBWordData data in dbWords){
+    for(DBWordData data in dbWords.reversed){
       final vv = Vocabulary(word: data.word, translation: data.translation);
       vocabularies.add(vv);
     }

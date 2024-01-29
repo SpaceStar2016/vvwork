@@ -84,21 +84,22 @@ class WordCard extends StatelessWidget {
                 color: UIUtils.themeCharacterWhite,
               ),
             ),
-            child: Text('发音'),
+            child: const Text('发音'),
           ),
         ],
       ),
     );
   }
 }
-
 class ReciteEmptyView extends StatelessWidget {
   const ReciteEmptyView({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "请添加单词"
+    return const Center(
+      child:Text(
+          "请添加单词",
+        style: TextStyle(fontSize: 18),
+      ),
     );
   }
 }
