@@ -51,7 +51,7 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('添加词汇'),
+        title: const Text('OoWords'),
       ),
       body: HomeTabBarVC(
         length: 2, // 选项卡的数量
