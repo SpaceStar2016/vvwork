@@ -19,7 +19,9 @@ class AppDatabase extends _$AppDatabase {
   @override
   int get schemaVersion => 1;
 
-  
+  // Future<int> deleteUser(int id) {
+  //   return (delete(DBWord)..where((t) => t.id.equals(userId))).go();
+  // }
 
 }
 

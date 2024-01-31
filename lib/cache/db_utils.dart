@@ -32,13 +32,13 @@ class DBUtils {
   }
 
   static deleteVocabulary(Vocabulary vv) async {
-    await db.into(db.dBWord).insert(DBWordCompanion.insert(
-          word: vv.word,
-          translation: vv.translation,
-        ));
-    if (vv.id != null) {
-      db.delete(db.dBWord).delete(
-          DBWordData(id: vv.id!, word: vv.word, translation: vv.translation));
+    if (vv.id == null) {
+      return;
     }
+    final id = vv.id!;
+    // go 方法必须要
+    (db.delete(db.dBWord)..where((t) => t.id.equals(id))).go();
+    //
+    vocabularies.remove(vv);
   }
 }

@@ -60,9 +60,9 @@ class _MyTabBarScreenState extends State<MyTabBarScreen>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: const [
+                children: [
                   // 第一个选项卡的内容
-                  AddView(),
+                  const AddView(),
                   // 第二个选项卡的内容
                   Center(
                     child: RecitePage(),
