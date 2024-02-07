@@ -1,8 +1,12 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:translator/translator.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:vvword/Model/vocabulary.dart';
+import 'package:vvword/Utils/common_util.dart';
 import 'package:vvword/app_setting.dart';
 import 'package:vvword/cache/db_utils.dart';
 
@@ -88,20 +92,42 @@ class _WordCardState extends State<WordCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                widget.word.word,
-                style: const TextStyle(
-                  fontSize: 24,
-                  color: UIUtils.themeCharacterBlack,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.word.word,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      color: UIUtils.themeCharacterBlack,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 10,),
+                  GestureDetector(
+                    onTap: () async {
+                      final data = ClipboardData(text: widget.word.word);
+                      await Clipboard.setData(data);
+                      EasyLoading.showSuccess('复制成功');
+                    },
+                    child: Png.name("copy",width: 20),
+                  )
+                ],
               ),
               const SizedBox(height: 16),
-              Text(
-                widget.word.translation ?? "",
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: UIUtils.themeCharacterBlack,
+              Opacity(
+                opacity: 1.0,
+                child: GestureDetector(
+                  onTap: () {
+                    CommonUtil.launchURL("https://fanyi.baidu.com/?aldtype=16047&ext_channel=Aldtype#auto/zh/${widget.word.word}");
+                  },
+                  child: const Text(
+                    "获取互联网翻译" ,
+                    style:  TextStyle(
+                      fontSize: 18,
+                      color: UIUtils.themeCharacterBlack,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
@@ -131,6 +157,17 @@ class _WordCardState extends State<WordCard> {
             child: Padding(
               padding: const EdgeInsets.all(20),
               child: Png.name("delete", width: 20),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 10,
+          left: 10,
+          child: GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Png.name("show_translation", width: 20),
             ),
           ),
         ),

@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_scalable_ocr/flutter_scalable_ocr.dart';
-import 'package:languagetool_textfield/core/controllers/language_tool_controller.dart';
-import 'package:languagetool_textfield/presentation/language_tool_text_field.dart';
 import 'package:vvword/page/tag_selector.dart';
 import '../Utils/UIUtils.dart';
 
@@ -17,7 +15,6 @@ class OcrPage extends StatefulWidget {
 class _OcrPageState extends State<OcrPage> {
   final ValueNotifier<List<String>> allTagsNo = ValueNotifier<List<String>>([]);
 
-  final LanguageToolController _controller = LanguageToolController();
 
   List<String> data = [];
   @override

@@ -2,7 +2,10 @@
 class Assets {
   Assets._();
 
+  static const String imagesCopy = 'assets/images/copy.png';
   static const String imagesDelete = 'assets/images/delete.png';
+  static const String imagesHideTranslation = 'assets/images/hide_translation.png';
   static const String imagesMineIconBack = 'assets/images/mine_icon_back.png';
+  static const String imagesShowTranslation = 'assets/images/show_translation.png';
 
 }

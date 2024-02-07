@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:vvword/page/add_view.dart';
 import 'package:vvword/cache/db_utils.dart';
 import 'package:vvword/page/add_page.dart';
@@ -23,8 +24,8 @@ class MyApp extends StatelessWidget {
         '/addPage': (context) => AddPage(),
         '/OcrPage': (context) => OcrPage(),
         '/TextRecognitionPage': (context) => TextRecognitionPage(),
-
       },
+      builder: EasyLoading.init(),
     );
   }
 }
