@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +11,7 @@ import 'package:vvword/Model/vocabulary.dart';
 import 'package:vvword/Utils/common_util.dart';
 import 'package:vvword/app_setting.dart';
 import 'package:vvword/cache/db_utils.dart';
+import 'package:http/http.dart' as http;
 
 import '../Utils/UIUtils.dart';
 
@@ -118,8 +121,18 @@ class _WordCardState extends State<WordCard> {
               Opacity(
                 opacity: 1.0,
                 child: GestureDetector(
-                  onTap: () {
-                    CommonUtil.launchURL("https://fanyi.baidu.com/?aldtype=16047&ext_channel=Aldtype#auto/zh/${widget.word.word}");
+                  onTap: () async {
+                    final response = await http.get(Uri.parse('https://fanyi.baidu.com/?aldtype=16047&ext_channel=Aldtype#auto/zh/${widget.word.word}'));
+                    if (response.statusCode == 200) {
+                      // print("res::::${response.body}");
+                      String jsonString = jsonEncode(response.body);
+                      print("jsonString::::$jsonString");
+                      var res =  json.decode(jsonString)['title'];
+                      print("res::::$res");
+                    } else {
+                      throw Exception('Failed to load data');
+                    }
+                    // CommonUtil.launchURL("https://fanyi.baidu.com/?aldtype=16047&ext_channel=Aldtype#auto/zh/${widget.word.word}");
                   },
                   child: const Text(
                     "获取互联网翻译" ,

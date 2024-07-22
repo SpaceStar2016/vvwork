@@ -117,6 +117,8 @@ PODS:
     - sqlite3/perf-threadsafe
     - sqlite3/rtree
   - Toast (4.0.0)
+  - url_launcher_ios (0.0.1):
+    - Flutter
   - ZLPhotoBrowser (4.4.8.1):
     - ZLPhotoBrowser/Core (= 4.4.8.1)
   - ZLPhotoBrowser/Core (4.4.8.1)
@@ -132,6 +134,7 @@ DEPENDENCIES:
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqlite3_flutter_libs (from `.symlinks/plugins/sqlite3_flutter_libs/ios`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
 
 SPEC REPOS:
   trunk:
@@ -175,11 +178,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqlite3_flutter_libs:
     :path: ".symlinks/plugins/sqlite3_flutter_libs/ios"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   camera_avfoundation: 8b8d780bcfb6a4a02b0fbe2b4bd17b5b71946e68
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_tts: 0f492aab6accf87059b72354fcb4ba934304771d
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   google_mlkit_commons: a4f893c1b9708fc697b2194728013a1ed0f50b6b
@@ -204,8 +209,9 @@ SPEC CHECKSUMS:
   sqlite3: 6e2d4a4879854d0ec86b476bf3c3e30870bac273
   sqlite3_flutter_libs: eb769059df0356dc52ddda040f09cacc9391a7cf
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
   ZLPhotoBrowser: 379473d376e3bee6f30f84778b2d5f9be09842e5
 
-PODFILE CHECKSUM: abfd0c150aec6b1a8b940db936b35c841132c8de
+PODFILE CHECKSUM: 0f627e73c98342dbb655cdcb6de9d3cf8a119a6a
 
 COCOAPODS: 1.12.1
